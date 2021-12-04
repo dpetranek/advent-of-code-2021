@@ -34,21 +34,6 @@
   [numstr]
   (Integer/parseInt numstr 2))
 
-(comment
-  (let [bits (->> ex-diagnosis
-                  ;; transpose them
-                  (apply (partial map (fn [& bits] bits))))
-        gamma   (->> bits (map gamma-rate) (reduce str) binary->decimal)
-        epsilon (->> bits (map epsilon-rate) (reduce str) binary->decimal)]
-    (* gamma epsilon))
-  198
-  (0 1 0 0 1)
-  (1 0 1 1 0)
-
-
-  ,)
-
-
 (defn transpose
   [seq-of-seqs]
   (apply (partial map (fn [& bits] (vec bits)))
@@ -109,34 +94,7 @@
     (* o2 co)))
 
 (comment
-  ex-diagnosis
-
-  (loop [rows ex-diagnosis
-         idx  0]
-    (let [candidates (map #(nth % idx) rows)
-          criteria   (epsilon-rate candidates)
-          search     (filter #(= criteria (nth % idx)) rows)]
-      (if (= 1 (count search))
-        (first search)
-        (recur search (inc idx)))))
-  (->> [0 1 0 1 0]
-       (reduce str)
-       (binary->decimal))
-  10
-  (->> [1 0 1 1 1]
-       (reduce str)
-       (binary->decimal))
-  23
-
-
-  (oxygen-generator-rating ex-diagnosis)
-  [1 0 1 1 1]
-  (carbon-scrubber-rating ex-diagnosis)
-  [0 1 0 1 0]
-
-  (life-support-rating ex-diagnosis)
-  230
-
+  input
   ;; Part2
 
   (life-support-rating input)

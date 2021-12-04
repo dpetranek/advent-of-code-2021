@@ -1,42 +1,6 @@
 (ns aoc.y2021.day1
   (:require [aoc.util :as ut]))
 
-(def ex-depths [199
-                200
-                208
-                210
-                200
-                207
-                240
-                269
-                260
-                263])
-
-(comment
-  ;; part1
-  (->> ex-depths
-       (partition 2 1)
-       (map (fn [[a b]]
-              (if (< a b)
-                :increased
-                :decreased))))
-  ;; (:increased :increased :increased :decreased :increased :increased :increased :decreased :increased)
-
-  ;; part2
-  (->> ex-depths
-       (partition 3 1)
-       (map (partial apply +))
-       (partition 2 1)
-       (map (fn [[a b]]
-              (cond
-                (< a b) :increased
-                (> a b) :decreased
-                (= a b) :no-change))))
-  ;; (:increased :no-change :decreased :increased :increased :increased :increased)
-
-  ,)
-
-(def input (ut/load-input "1_1.txt"))
 
 (defn raw->edn
   [strings]
@@ -54,7 +18,11 @@
        (frequencies)))
 
 (comment
-  (depth-measurement-report (raw->edn input))
+  (def input (raw->edn (ut/load-input "1_1.txt")))
+
+  ;; part1
+
+  (depth-measurement-report input)
   ;; {:increased 1752, :decreased 247}
   )
 
@@ -76,7 +44,11 @@
        (frequencies)))
 
 (comment
-  (cleaned-depth-measurement-report (raw->edn input))
+  input
+
+  ;; part2
+
+  (cleaned-depth-measurement-report input)
   ;; {:increased 1781, :decreased 183, :no-change 33}
 
   )
