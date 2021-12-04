@@ -1,0 +1,3 @@
+* Advent of Code
+
+M-x cider-jack-in
