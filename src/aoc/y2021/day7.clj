@@ -49,8 +49,10 @@
 
 (defn find-efficient-alignment
   [crabs]
-  (first (sort-by first (for [pos (range (count crabs))]
-                          [(cost-for-moves pos crabs) pos]))))
+  (->> (range (count crabs))
+       (pmap (fn [pos] [(cost-for-moves pos crabs) pos]))
+       (sort-by first)
+       first))
 
 (comment
   (find-efficient-alignment ex-input)
@@ -58,6 +60,8 @@
 
   ;; part 2
   (time (find-efficient-alignment input))
+  [92881128 458]                        ; changed `for` to `pmap`
+  ;; "Elapsed time: 14836.109872 msecs"
   [92881128 458]
   ;; "Elapsed time: 37413.921255 msecs" :o
   ,)
